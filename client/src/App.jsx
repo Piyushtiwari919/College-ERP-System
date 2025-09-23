@@ -3,10 +3,11 @@ import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./pages/LoginPage";
 import LandingPage from "./pages/LandingPage";
 import AdminDashboard from "./pages/admin/Dashboard";
-import FacultyDashboard from "./pages/faculty/Dashboard";
+
 import StudentDashboard from "./pages/student/Dashboard";
 import AdmissionForm from "./pages/AdmissionForm";
 import PaymentPage from "./pages/PaymentPage";
+import Appfaculty from "./pages/faculty/Appfaculty";
 
 function App() {
   return (
@@ -33,7 +34,7 @@ function App() {
           path="/faculty/dashboard"
           element={
             <PrivateRoute allowedRoles={["faculty"]}>
-              <FacultyDashboard />
+              <Appfaculty />
             </PrivateRoute>
           }
         />
