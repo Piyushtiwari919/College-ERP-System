@@ -41,10 +41,7 @@ interface SidebarItem {
 
 const sidebarItems: SidebarItem[] = [
   { id: 'dashboard', label: 'Dashboard', icon: Home },
-  { id: 'examination', label: 'Examination', icon: ClipboardCheck },
-  { id: 'results', label: 'Results', icon: BarChart3 },
   { id: 'attendance', label: 'Attendance', icon: UserCheck },
-  { id: 'admit-card', label: 'Admit Card', icon: Receipt },
   { id: 're-evaluation', label: 'Re-Evaluation', icon: TrendingUp },
   { id: 'exam-marks', label: 'Exam Marks', icon: Award },
   { id: 'performance', label: 'Performance Analytics', icon: Star },

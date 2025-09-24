@@ -1,16 +1,18 @@
+// tailwind.config.js
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
+  content: [
+    // Make sure your file paths are correct here, e.g.:
+    "./src/**/*.{html,js,jsx,ts,tsx}",
+     "./public/index.html",
+  ],
   theme: {
     extend: {
-      keyframes: {
-        gradientMove: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-      },
-      animation: {
-        gradientMove: "gradientMove 5s ease infinite",
+      backgroundImage: {
+        'dark-gradient': 'linear-gradient(315deg, #003153 0%, #1B1B1B 74%)',
       },
     },
   },
   plugins: [],
-};
+}
