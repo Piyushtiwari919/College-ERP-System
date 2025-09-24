@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Briefcase, MapPin, Calendar, BookOpen, GraduationCap } from 'lucide-react';
+import { Briefcase, MapPin, GraduationCap, Users, Star  } from 'lucide-react';
 import { Card } from './ui/card';
 
 const alumniData = [
@@ -41,6 +41,12 @@ const alumniData = [
   }
 ];
 
+const stats = [
+  { label: "Total Alumni", value: "15,000+", icon: Users },
+  { label: "Global Reach", value: "45+ Countries", icon: MapPin },
+  { label: "Top Companies", value: "500+", icon: Briefcase },
+  { label: "Success Rate", value: "95%", icon: Star }
+];
 export function AlumniSection() {
   return (
     <section id="alumni" className="py-20 ">
@@ -60,6 +66,28 @@ export function AlumniSection() {
           </p>
         </motion.div>
 
+   {/* Statistics */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05 }}
+              className="text-center"
+            >
+              <Card className="p-6 hover:shadow-lg transition-all duration-300">
+                <stat.icon className="h-8 w-8 text-blue-600 mx-auto mb-3" />
+                <h3 className="text-2xl font-bold text-gray-900 mb-1">{stat.value}</h3>
+                <p className="text-gray-600">{stat.label}</p>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+
+          {/* Featured Alumni */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {alumniData.map((alumni, index) => (
             <motion.div
@@ -70,7 +98,7 @@ export function AlumniSection() {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
             >
-              <Card className="p-6 h-full bg-gray-200 text-center border-t-4 border-blue-600 rounded-lg shadow-xl">
+              <Card className="p-6 h-full bg-gray-200 text-center border-t-4 rounded-lg shadow-xl">
                 <img
                   src={alumni.image}
                   alt={alumni.name}

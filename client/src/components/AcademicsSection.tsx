@@ -62,7 +62,7 @@ const departments = [
 
 export function AcademicsSection() {
   return (
-    <section id="academics" className="py-20 ">
+    <section id="academics" className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -71,10 +71,10 @@ export function AcademicsSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Academic Excellence
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Comprehensive engineering programs designed to meet industry demands and foster innovation
           </p>
         </motion.div>
@@ -90,7 +90,7 @@ export function AcademicsSection() {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }} // Removed 3D rotation
             >
-              <Card className="p-4 h-full hover:shadow-xl transition-all duration-300 bg-gray-200 gap-3">
+              <Card className="p-4 h-full hover:shadow-xl transition-all duration-300 bg-white gap-3">
                 <div className="flex items-start justify-between">
                   <div>
                     <Badge variant="outline" className=" bg-blue-50 text-blue-700 border-blue-200">

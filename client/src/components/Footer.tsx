@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { BookOpen, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const quickLinks = [
-  "Admissions", "Courses", "Faculty", "Placements", "Research", "Campus Life"
+  "Admissions", "Courses","Examination", "AdmitCard", "Result","Attendence" 
 ];
 
 const departments = [

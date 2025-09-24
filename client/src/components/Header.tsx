@@ -15,11 +15,9 @@ export function Header() {
 
   const navItems = [
     { icon: GraduationCap, label: 'Academics', href: '#academics' },
-
+    { icon: User, label: 'Faculty', href: '#faculty' },
     { icon: Users, label: 'Alumni', href: '#alumni' },
-  
-    { icon: Award, label: 'About', href: '#about' },
-    { icon: User, label: 'Faculty', href: '#faculty' }
+    { icon: Award, label: 'About', href: '#about' }
   ];
 
 

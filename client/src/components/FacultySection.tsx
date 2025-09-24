@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Award, BookOpen, Users, GraduationCap, Zap } from 'lucide-react';
+import { Award, BookOpen, GraduationCap, Zap} from 'lucide-react';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 
@@ -46,9 +46,12 @@ const facultyMembers = [
   }
 ];
 
+
+
+
 export function FacultySection() {
   return (
-    <section id="faculty" className="py-20">
+    <section id="faculty" className="py-20 bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -57,10 +60,10 @@ export function FacultySection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             Distinguished Faculty
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Learn from industry experts and renowned academicians committed to your success.
           </p>
         </motion.div>
@@ -75,7 +78,7 @@ export function FacultySection() {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
             >
-              <Card className="p-6 h-full bg-gray-200 text-center border-t-4 border-blue-600 rounded-lg shadow-xl">
+              <Card className="p-6 h-full bg-white text-center border-t-4 rounded-lg shadow-xl">
                 <img
                   src={faculty.image}
                   alt={faculty.name}
