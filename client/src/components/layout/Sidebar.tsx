@@ -52,7 +52,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
         `flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
           isActive
             ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
-            : 'text-gray-700 hover:bg-orange-100 dark:text-gray-300 dark:hover:bg-orange-400'
+            : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-200'
         }`
       }
       onClick={() => onClose()}
