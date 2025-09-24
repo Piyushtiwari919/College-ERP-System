@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from 'motion/react';
 import { BookOpen, Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const quickLinks = [

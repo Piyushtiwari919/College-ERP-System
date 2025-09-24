@@ -21,31 +21,25 @@
 import { Header } from '../components/Header';
 import { Hero } from '../components/Hero';
 import { AcademicsSection } from '../components/AcademicsSection';
-import { FacilitiesSection } from '../components/FacilitiesSection';
 import { FacultySection } from '../components/FacultySection';
 import { AlumniSection } from '../components/AlumniSection';
-import { TestimonialsSection } from '../components/TestimonialsSection';
-import { EventsSection } from '../components/EventsSection';
-import { NewsSection } from '../components/NewsSection';
 import { AboutSection } from '../components/AboutSection';
-import { NewsletterSection } from '../components/NewsletterSection';
 import { Footer } from '../components/Footer';
+import { TestimonialsSection } from '../components/TestimonialsSection';
 // import  {Toaster}  from '../components/ui/sonner';
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[linear-gradient(315deg,_#003153_0%,_#1B1B1B_74%)]">
       <Header />
       <Hero />
       <AcademicsSection />
-      <FacilitiesSection />
+      
       <FacultySection />
       <AlumniSection />
-      <TestimonialsSection />
-      <EventsSection />
-      <NewsSection />
+     <TestimonialsSection />
       <AboutSection />
-      <NewsletterSection />
+      
       <Footer />
       {/* <Toaster /> */}
     </div>
