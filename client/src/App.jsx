@@ -1,17 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
 import LoginPage from "./pages/LoginPage";
 import LandingPage from "./pages/LandingPage";
 import AdminDashboard from "./pages/admin/Dashboard";
-
 import StudentDashboard from "./pages/student/Dashboard";
 import AdmissionForm from "./pages/AdmissionForm";
 import PaymentPage from "./pages/PaymentPage";
 import Appfaculty from "./pages/faculty/Appfaculty";
+import { AdminProvider } from './contexts/AdminContext';
+import { ThemeProvider } from './contexts/ThemeContext';
 
 function App() {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
@@ -22,10 +23,14 @@ function App() {
 
           {/* Role-based dashboards */}
          <Route
-          path="/admin/dashboard"
+          path="/admin/*"
           element={
             <PrivateRoute allowedRoles={["admin"]}>
-              <AdminDashboard />
+                <ThemeProvider>
+        <AdminProvider>
+          <AdminDashboard />
+        </AdminProvider>
+      </ThemeProvider>
             </PrivateRoute>
           }
         />
@@ -48,7 +53,7 @@ function App() {
           }
             />
       </Routes> 
-    </BrowserRouter>
+    </>
   );
 }
 
