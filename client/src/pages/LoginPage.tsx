@@ -1,7 +1,43 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import loginImage from "../assets/abes_login.jpg";
-import { loginUser } from "../services/authService";
+// import { loginUser } from "../services/authService";
+
+const loginUser = async (loginData: { admissionNo?: string; email?: string; password: string }) => {
+  await new Promise((r) => setTimeout(r, 500)); // fake async delay
+
+  if (loginData.password !== "test123") {
+    throw new Error("Invalid password");
+  }
+
+  if (loginData.admissionNo) {
+    return {
+      token: "dummy-student-token",
+      role: "student",
+      userId: "student-id-123",
+      email: "student@example.com",
+      name: "Test Student",
+    };
+  } else if (loginData.email === "admin@example.com") {
+    return {
+      token: "dummy-admin-token",
+      role: "admin",
+      userId: "admin-id-123",
+      email: "admin@example.com",
+      name: "Admin User",
+    };
+  } else if (loginData.email) {
+    return {
+      token: "dummy-faculty-token",
+      role: "faculty",
+      userId: "faculty-id-123",
+      email: loginData.email,
+      name: "Faculty User",
+    };
+  } else {
+    throw new Error("Invalid login data");
+  }
+};
 
 const LoginPage = () => {
   const navigate = useNavigate();
