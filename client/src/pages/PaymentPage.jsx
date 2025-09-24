@@ -1,19 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { generateInvoice } from "../utils/invoice";
 import { useNavigate } from "react-router-dom";
 
+const Toast = ({ message, onClose, type = "success", duration = 4000 }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, duration);
+    return () => clearTimeout(timer);
+  }, [onClose, duration]);
+
+  const colors = {
+    success: "bg-green-100 text-green-700 border-green-400",
+    error: "bg-red-100 text-red-700 border-red-400",
+    warning: "bg-yellow-100 text-yellow-700 border-yellow-400",
+  };
+
+  return (
+    <div
+      className={`fixed top-5 right-5 z-50 flex items-center border-l-4 p-4 rounded shadow-md ${colors[type]}`}
+      role="alert"
+    >
+      <div className="flex-1">{message}</div>
+      <button
+        onClick={onClose}
+        className="ml-4 text-xl font-bold focus:outline-none"
+        aria-label="Close notification"
+      >
+        &times;
+      </button>
+    </div>
+  );
+};
 
 
 const PaymentPage = () => {
   const navigate = useNavigate();
+  const [toast, setToast] = useState({ message: "", type: "success", visible: false });
 
-  const tutionFee = 1;
+
+  const tuitionFee = 1;
   const registrationFee = 0;
   const bookFee = 0;
   const medicalInsurance = 0;
   const miscellaneous = 0;
-  const totalFee = tutionFee+registrationFee+bookFee+medicalInsurance+miscellaneous;
+  const totalFee = tuitionFee + registrationFee + bookFee + medicalInsurance + miscellaneous;
   const maxUpiLimit = 50000;
 
   const [formData, setFormData] = useState({
@@ -34,205 +66,230 @@ const PaymentPage = () => {
   };
 
   const handlePayment = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await fetch("http://localhost:5000/get-personal");
-    const data = await res.json();
+    try {
+      const res = await fetch("http://localhost:5000/get-personal");
+      const data = await res.json();
 
-    const studentName = data.fullName || "Unknown Student";
-    const courseName = data.course || "Unknown Course";
+      const studentName = data.fullName || "Unknown Student";
+      const courseName = data.course || "Unknown Course";
 
-    // calculate payable amount
-    const amountToPay =
-      installmentOption === "full"
-        ? totalFee - paidAmount
-        : Math.min(maxUpiLimit, totalFee - paidAmount);
+      const amountToPay =
+        installmentOption === "full"
+          ? totalFee - paidAmount
+          : Math.min(maxUpiLimit, totalFee - paidAmount);
 
-    const newPaidAmount = paidAmount + amountToPay;
+      const newPaidAmount = paidAmount + amountToPay;
 
-    if (newPaidAmount > totalFee) {
-      alert("⚠️ You’re trying to overpay. Please adjust installments.");
-      return;
+      if (newPaidAmount > totalFee) {
+        setToast({
+  message: "⚠️ You’re trying to overpay. Please adjust installments.",
+  type: "error",
+  visible: true,
+});
+        return;
+      }
+
+      setPaidAmount(newPaidAmount);
+
+      setToast({
+  message: `✅ Paid ₹${amountToPay}. Remaining: ₹${totalFee - newPaidAmount}`,
+  type: "success",
+  visible: true,
+});
+
+      generateInvoice(studentName, courseName, amountToPay, totalFee, newPaidAmount);
+
+      if (newPaidAmount >= totalFee) {
+        setToast({ message: "🎉 Payment completed! Redirecting to login..", type: "success", visible: true });
+          setTimeout(() => {
+    navigate("/login");
+  }, 3500);
+      }
+    } catch (error) {
+      console.error("Error fetching applicant data:", error);
+          setToast({
+  message: "⚠️ Failed to fetch applicant data. Payment aborted.",
+  type: "error",
+  visible: true,
+});
     }
-
-    setPaidAmount(newPaidAmount);
-
-    alert(`✅ Paid ₹${amountToPay}. Remaining: ₹${totalFee - newPaidAmount}`);
-
-    // generate invoice
-    generateInvoice(studentName, courseName, amountToPay, totalFee, newPaidAmount);
-
-    // redirect when fully paid
-    if (newPaidAmount >= totalFee) {
-      alert("🎉 Payment completed! Redirecting to login...");
-      navigate("/login"); 
-    }
-  } catch (error) {
-    console.error("Error fetching applicant data:", error);
-    alert("⚠️ Failed to fetch applicant data. Payment aborted.");
-  }
-};
+  };
 
   return (
-    <div className="bg-gray-600">
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-3xl mx-auto bg-gray-800 p-8 rounded-2xl shadow-lg text-white"
-    >
-      <h2 className="text-3xl font-bold text-orange-500 mb-6 text-center">
-        Payment Details
-      </h2>
+    <div className="min-h-screen bg-gradient-to-tr bg-gray-200 flex items-center justify-center p-8">
+       {toast.visible && (
+      <Toast
+        message={toast.message}
+        type={toast.type}
+        onClose={() => setToast((t) => ({ ...t, visible: false }))}
+      />
+    )}
 
-      {/* Progress Bar */}
-      <div className="flex items-center mb-6">
-        <div className="w-full bg-gray-700 rounded-full h-2.5 mr-2">
-          <div
-            className="bg-orange-500 h-2.5 rounded-full transition-all duration-300"
-            style={{ width: `${(paidAmount / totalFee) * 100}%` }}
-          ></div>
-        </div>
-        <span className="text-sm text-gray-300 min-w-[3rem]">
-          {Math.round((paidAmount / totalFee) * 100)}%
-        </span>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="w-full max-w-3xl bg-white rounded-3xl shadow-2xl p-10 border border-pink-300"
+      >
+        <h2 className="text-4xl font-extrabold text-gradient-to-r from-pink-500 to-purple-600 mb-10 text-center select-none">
+          Payment Details
+        </h2>
 
-      {/* Fee Summary */}
-      <div className="bg-gray-700 p-4 rounded-xl mb-6">
-        <h3 className="text-xl font-semibold mb-2">Fee Summary</h3>
-        <div className="flex justify-between text-gray-300 mb-1">
-          <span>Tuition Fee</span>
-          <span>₹ {tutionFee}</span>
-        </div>
-        <div className="flex justify-between text-gray-300 mb-1">
-          <span>Registration Fee</span>
-          <span>₹ {registrationFee}</span>
-        </div>
-        <div className="flex justify-between text-gray-300 mb-1">
-          <span>Book Bank Maintenamce Fee</span>
-          <span>₹ {bookFee}</span>
-        </div>
-        <div className="flex justify-between text-gray-300 mb-1">
-          <span>Medical Insurance</span>
-          <span>₹ {medicalInsurance}</span>
-        </div>
-        <div className="flex justify-between text-gray-300 mb-1">
-          <span>Miscellaneous</span>
-          <span>₹ {miscellaneous}</span>
-        </div>
-        <div className="border-t border-gray-500 mt-2 pt-2 flex justify-between text-lg font-bold">
-          <span>Total</span>
-          <span className="text-orange-400">₹ {totalFee}</span>
-        </div>
-        <div className="mt-2 text-sm text-gray-400">
-          ✅ Paid: ₹{paidAmount} | ⏳ Remaining: ₹{totalFee - paidAmount}
-        </div>
-      </div>
-
-      {/* Installment Option */}
-      <div className="bg-gray-700 p-4 rounded-xl mb-6">
-        <h3 className="text-lg font-semibold mb-2">Choose Payment Option</h3>
-        <div className="flex gap-6">
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              name="installment"
-              value="full"
-              checked={installmentOption === "full"}
-              onChange={(e) => setInstallmentOption(e.target.value)}
-            />
-            <span>Full Payment (₹{totalFee - paidAmount})</span>
-          </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              name="installment"
-              value="part"
-              checked={installmentOption === "part"}
-              onChange={(e) => setInstallmentOption(e.target.value)}
-            />
-            <span>Installment (Max ₹{maxUpiLimit})</span>
-          </label>
-        </div>
-      </div>
-
-      {/* Payment Form */}
-      <form onSubmit={handlePayment} className="grid gap-4">
-        <div className="flex flex-col">
-          <label className="mb-1">Name on Card</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="p-3 rounded bg-gray-600 border border-white focus:border-orange-500 outline-none"
-            placeholder="Pratibha Maurya"
-            required
-          />
+        {/* Progress Bar */}
+        <div className="flex items-center mb-8">
+          <div className="flex-1 h-3 bg-gray-200 rounded-full mr-4 shadow-inner">
+            <div
+              className="h-3 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full transition-all duration-500"
+              style={{ width: `${(paidAmount / totalFee) * 100}%` }}
+            ></div>
+          </div>
+          <span className="text-lg font-semibold text-pink-700 min-w-[3.5rem] text-right select-none">
+            {Math.round((paidAmount / totalFee) * 100)}%
+          </span>
         </div>
 
-        <div className="flex flex-col">
-          <label className="mb-1">Card Number</label>
-          <input
-            type="text"
-            name="cardNumber"
-            value={formData.cardNumber}
-            onChange={handleChange}
-            className="p-3 rounded bg-gray-600 border border-white focus:border-orange-500 outline-none"
-            placeholder="1234 5678 9012 3456"
-            required
-          />
+        {/* Fee Summary */}
+        <div className="bg-pink-50 p-8 rounded-xl mb-8 shadow-inner border border-pink-200">
+          <h3 className="text-2xl font-semibold mb-5 text-pink-700 tracking-wide">
+            Fee Summary
+          </h3>
+          {[
+            ["Tuition Fee", tuitionFee],
+            ["Registration Fee", registrationFee],
+            ["Book Bank Maintenance Fee", bookFee],
+            ["Medical Insurance", medicalInsurance],
+            ["Miscellaneous", miscellaneous],
+          ].map(([label, amount]) => (
+            <div key={label} className="flex justify-between text-pink-900 mb-3 font-medium">
+              <span>{label}</span>
+              <span>₹ {amount}</span>
+            </div>
+          ))}
+          <div className="border-t border-pink-300 pt-4 flex justify-between font-extrabold text-pink-600 text-xl">
+            <span>Total</span>
+            <span>₹ {totalFee}</span>
+          </div>
+          <div className="mt-3 text-sm font-semibold text-pink-500 select-none">
+            ✅ Paid: ₹{paidAmount} | ⏳ Remaining: ₹{totalFee - paidAmount}
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col">
-            <label className="mb-1">Expiry</label>
+        {/* Installment Option */}
+        <div className="bg-pink-50 rounded-xl p-6 mb-8 border border-pink-200 shadow-inner">
+          <h3 className="text-xl font-semibold mb-5 text-pink-700 tracking-wide select-none">
+            Choose Payment Option
+          </h3>
+          <div className="flex gap-10 text-pink-800 font-semibold text-lg">
+            <label className="flex items-center gap-4 cursor-pointer hover:text-pink-600 transition">
+              <input
+                type="radio"
+                name="installment"
+                value="full"
+                checked={installmentOption === "full"}
+                onChange={(e) => setInstallmentOption(e.target.value)}
+                className="accent-pink-600 w-6 h-6 cursor-pointer"
+              />
+              Full Payment (₹{totalFee - paidAmount})
+            </label>
+            <label className="flex items-center gap-4 cursor-pointer hover:text-pink-600 transition">
+              <input
+                type="radio"
+                name="installment"
+                value="part"
+                checked={installmentOption === "part"}
+                onChange={(e) => setInstallmentOption(e.target.value)}
+                className="accent-pink-600 w-6 h-6 cursor-pointer"
+              />
+              Installment (Max ₹{maxUpiLimit})
+            </label>
+          </div>
+        </div>
+
+        {/* Payment Form */}
+        <form onSubmit={handlePayment} className="grid gap-8">
+          <div>
+            <label className="block mb-3 font-bold text-pink-700 text-lg select-none">
+              Name on Card
+            </label>
             <input
               type="text"
-              name="expiry"
-              value={formData.expiry}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
-              className="p-3 rounded bg-gray-600 border border-white focus:border-orange-500 outline-none"
-              placeholder="MM/YY"
+              className="w-full px-5 py-4 rounded-2xl border border-pink-300 focus:outline-none focus:ring-4 focus:ring-pink-400 transition shadow-lg"
+              placeholder="Pratibha Maurya"
               required
             />
           </div>
-          <div className="flex flex-col">
-            <label className="mb-1">CVV</label>
-            <input
-              type="password"
-              name="cvv"
-              value={formData.cvv}
-              onChange={handleChange}
-              className="p-3 rounded bg-gray-600 border border-white focus:border-orange-500 outline-none"
-              placeholder="***"
-              required
-            />
-          </div>
-        </div>
 
-        {/* Buttons */}
-        <div className="flex gap-4 mt-6">
-          <button
-            type="button"
-            className="flex-1 px-6 py-3 bg-gray-600 rounded-lg hover:bg-gray-500 transition"
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="flex-1 px-6 py-3 bg-orange-600 rounded-lg hover:bg-orange-500 transition font-semibold"
-          >
-            Pay ₹
-            {installmentOption === "full"
-              ? totalFee - paidAmount
-              : Math.min(maxUpiLimit, totalFee - paidAmount)}
-          </button>
-        </div>
-      </form>
-    </motion.div>
+          <div>
+            <label className="block mb-3 font-bold text-pink-700 text-lg select-none">
+              Card Number
+            </label>
+            <input
+              type="text"
+              name="cardNumber"
+              value={formData.cardNumber}
+              onChange={handleChange}
+              className="w-full px-5 py-4 rounded-2xl border border-pink-300 focus:outline-none focus:ring-4 focus:ring-pink-400 transition shadow-lg"
+              placeholder="1234 5678 9012 3456"
+              required
+            />
+          </div>
+
+          <div className="grid grid-cols-2 gap-8">
+            <div>
+              <label className="block mb-3 font-bold text-pink-700 text-lg select-none">
+                Expiry
+              </label>
+              <input
+                type="text"
+                name="expiry"
+                value={formData.expiry}
+                onChange={handleChange}
+                className="w-full px-5 py-4 rounded-2xl border border-pink-300 focus:outline-none focus:ring-4 focus:ring-pink-400 transition shadow-lg"
+                placeholder="MM/YY"
+                required
+              />
+            </div>
+            <div>
+              <label className="block mb-3 font-bold text-pink-700 text-lg select-none">
+                CVV
+              </label>
+              <input
+                type="password"
+                name="cvv"
+                value={formData.cvv}
+                onChange={handleChange}
+                className="w-full px-5 py-4 rounded-2xl border border-pink-300 focus:outline-none focus:ring-4 focus:ring-pink-400 transition shadow-lg"
+                placeholder="***"
+                required
+              />
+            </div>
+          </div>
+
+          {/* Buttons */}
+          <div className="flex gap-6 mt-10">
+            <button
+              type="button"
+              className="flex-1 bg-pink-300 text-pink-900 py-4 rounded-2xl font-semibold hover:bg-pink-400 transition shadow-md"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="flex-1 bg-gradient-to-r from-pink-600 to-purple-700 text-white py-4 rounded-2xl font-extrabold shadow-xl hover:from-pink-700 hover:to-purple-800 transition"
+            >
+              Pay ₹
+              {installmentOption === "full"
+                ? totalFee - paidAmount
+                : Math.min(maxUpiLimit, totalFee - paidAmount)}
+            </button>
+          </div>
+        </form>
+      </motion.div>
     </div>
   );
 };
