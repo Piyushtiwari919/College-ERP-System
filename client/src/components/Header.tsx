@@ -15,11 +15,9 @@ export function Header() {
 
   const navItems = [
     { icon: GraduationCap, label: 'Academics', href: '#academics' },
-    { icon: Building, label: 'Facilities', href: '#facilities' },
+    { icon: User, label: 'Faculty', href: '#faculty' },
     { icon: Users, label: 'Alumni', href: '#alumni' },
-    { icon: Calendar, label: 'Events', href: '#events' },
-    { icon: Award, label: 'About', href: '#about' },
-    { icon: User, label: 'Faculty', href: '#faculty' }
+    { icon: Award, label: 'About', href: '#about' }
   ];
 
 
@@ -43,7 +41,7 @@ export function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b"
+      className="fixed top-0 left-0 right-0 z-50 bg-[linear-gradient(315deg,_#003153_0%,_#1B1B1B_74%)]"
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
@@ -51,8 +49,8 @@ export function Header() {
           <motion.div whileHover={{ scale: 1.05 }} className="flex items-center space-x-3">
             <BookOpen className="h-8 w-8 text-blue-600" />
             <div>
-              <h1 className="text-xl font-bold text-gray-900">ABES Engineering College</h1>
-              <p className="text-sm text-gray-600">ERP Portal</p>
+              <h1 className="text-xl font-bold text-white">ABES Engineering College</h1>
+              <p className="text-sm text-gray-300">ERP Portal</p>
             </div>
           </motion.div>
           
@@ -63,7 +61,7 @@ export function Header() {
                 key={item.label}
                 whileHover={{ scale: 1.1 }}
                 href={item.href}
-                className="flex items-center space-x-2 text-gray-700 hover:text-blue-600 transition-colors"
+                className="flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors"
               >
                 <item.icon className="h-4 w-4" />
                 <span>{item.label}</span>

@@ -1,15 +1,16 @@
 import { motion } from 'motion/react';
-import { Users, MapPin, Briefcase, Star } from 'lucide-react';
+import { Briefcase, MapPin, GraduationCap, Users, Star  } from 'lucide-react';
 import { Card } from './ui/card';
 
 const alumniData = [
   {
-    name: "Priya Sharma",
+    name: "Mohan Kumar",
     batch: "2020",
     position: "Software Engineer",
     company: "Google",
     location: "Bangalore",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612e5ad?w=150&h=150&fit=crop&crop=face"
+    image: "https://media.istockphoto.com/id/1497142422/photo/close-up-photo-portrait-of-young-successful-entrepreneur-businessman-investor-wearing-glasses.webp?a=1&b=1&s=612x612&w=0&k=20&c=YBSe3jKmA6zZgE5U2ojmXjWf6h-Oo2ocdpfL9qMOLao=",
+    quote: "The practical approach to learning and emphasis on research at ABES helped me develop strong analytical skills. I'm grateful for the mentorship I received from the faculty."
   },
   {
     name: "Rohit Kumar",
@@ -17,7 +18,8 @@ const alumniData = [
     position: "Data Scientist",
     company: "Microsoft",
     location: "Hyderabad",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    quote: "ABES gave me a perfect blend of technical expertise and leadership skills. The campus culture encouraged innovation and collaborative learning."
   },
   {
     name: "Anjali Gupta",
@@ -25,7 +27,8 @@ const alumniData = [
     position: "Product Manager",
     company: "Amazon",
     location: "Delhi",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+    quote: "The industry-relevant curriculum and hands-on projects at ABES prepared me well for my career. The placement support was outstanding."
   },
   {
     name: "Vikash Singh",
@@ -33,7 +36,8 @@ const alumniData = [
     position: "Tech Lead",
     company: "Flipkart",
     location: "Bangalore",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+    quote: "ABES fostered my passion for artificial intelligence. The research opportunities and modern labs provided the perfect environment for learning and innovation."
   }
 ];
 
@@ -43,10 +47,9 @@ const stats = [
   { label: "Top Companies", value: "500+", icon: Briefcase },
   { label: "Success Rate", value: "95%", icon: Star }
 ];
-
 export function AlumniSection() {
   return (
-    <section id="alumni" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section id="alumni" className="py-20 ">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -55,15 +58,15 @@ export function AlumniSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Our Distinguished Alumni
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Distinguished Alumni
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Proud graduates making their mark across the globe in leading technology companies
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Proud graduates making their mark in top technology companies worldwide.
           </p>
         </motion.div>
 
-        {/* Statistics */}
+   {/* Statistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
           {stats.map((stat, index) => (
             <motion.div
@@ -84,56 +87,45 @@ export function AlumniSection() {
           ))}
         </div>
 
-        {/* Featured Alumni */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Featured Alumni */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {alumniData.map((alumni, index) => (
             <motion.div
-              key={alumni.name}
+              key={index}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05, rotateY: 5 }}
-              style={{ transformStyle: 'preserve-3d' }}
+              whileHover={{ scale: 1.05 }}
             >
-              <Card className="p-6 text-center hover:shadow-xl transition-all duration-300 bg-white">
-                <div className="relative mb-4">
-                  <img
-                    src={alumni.image}
-                    alt={alumni.name}
-                    className="w-20 h-20 rounded-full mx-auto object-cover border-4 border-blue-100"
-                  />
-                  <div className="absolute -bottom-2 -right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full">
-                    {alumni.batch}
+              <Card className="p-6 h-full bg-gray-200 text-center border-t-4 rounded-lg shadow-xl">
+                <img
+                  src={alumni.image}
+                  alt={alumni.name}
+                  className="w-24 h-24 rounded-full mx-auto mb-4 object-cover border-2 border-gray-200"
+                />
+                <h3 className="font-bold text-lg text-gray-900 mb-1">
+                  {alumni.name}
+                </h3>
+                <p className="text-blue-600 text-sm font-medium mb-3">{alumni.position}</p>
+                <div className="space-y-1 text-gray-700 text-sm">
+                  <div className="flex items-center justify-center">
+                    <Briefcase className="w-4 h-4 mr-2 text-gray-500" />
+                    <span>{alumni.company}</span>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <MapPin className="w-4 h-4 mr-2 text-gray-500" />
+                    <span>{alumni.location}</span>
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <GraduationCap className="w-4 h-4 mr-2 text-gray-500" />
+                    <span>Batch of {alumni.batch}</span>
                   </div>
                 </div>
-                <h3 className="font-bold text-gray-900 mb-1">{alumni.name}</h3>
-                <p className="text-blue-600 mb-1">{alumni.position}</p>
-                <p className="font-medium text-gray-800 mb-2">{alumni.company}</p>
-                <p className="text-sm text-gray-600 flex items-center justify-center">
-                  <MapPin className="h-3 w-3 mr-1" />
-                  {alumni.location}
-                </p>
               </Card>
             </motion.div>
           ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-12"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
-          >
-            View All Alumni
-          </motion.button>
-        </motion.div>
       </div>
     </section>
   );

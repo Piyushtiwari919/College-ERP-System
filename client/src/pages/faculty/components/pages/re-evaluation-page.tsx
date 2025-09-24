@@ -141,7 +141,7 @@ export function ReEvaluationPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
-        <Card className="glass-card hover-lift bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-950/20 dark:to-indigo-950/20 border-blue-200 dark:border-blue-800">
+        <Card className="glass-card hover-lift  bg-gradient-to-br from-red-50 to-yellow-100 dark:from-red-950/20 dark:to-yellow-950/20 border-red-200 dark:border-red-800">
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>

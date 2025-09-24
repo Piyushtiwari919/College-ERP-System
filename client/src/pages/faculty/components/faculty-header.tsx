@@ -35,10 +35,10 @@ export function FacultyHeader({ onSidebarToggle }: FacultyHeaderProps) {
           </Button>
           <div className="flex items-center space-x-2">
             <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-              <span className="text-white font-bold text-sm">KG</span>
+              <span className="text-white font-bold text-sm">VM</span>
             </div>
             <div className="hidden sm:block">
-              <h1 className="font-semibold">University Portal</h1>
+              <h1 className="font-semibold">Vikash Maurya</h1>
               <p className="text-xs text-muted-foreground">Faculty Dashboard</p>
             </div>
           </div>

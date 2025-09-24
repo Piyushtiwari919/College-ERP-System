@@ -57,7 +57,7 @@ export default function Appfaculty() {
       icon: Users,
       trend: 'up' as const,
       trendValue: 5.4,
-      className: 'bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-blue-950/20 dark:to-indigo-950/20 border-blue-200 dark:border-blue-800'
+     className: 'bg-gradient-to-br from-red-50 to-yellow-100 dark:from-red-950/20 dark:to-yellow-950/20 border-red-200 dark:border-red-800'
     },
     {
       title: 'Attendance Rate',
