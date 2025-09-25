@@ -116,7 +116,7 @@ const FacultyRecord: React.FC = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+      <div className="bg-white  p-6 rounded-lg shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -147,7 +147,7 @@ const FacultyRecord: React.FC = () => {
                 placeholder="Search by name, email, or department..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:text-white"
               />
             </div>
           </div>
@@ -156,7 +156,7 @@ const FacultyRecord: React.FC = () => {
             <select
               value={filterDepartment}
               onChange={(e) => setFilterDepartment(e.target.value)}
-              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+              className="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  dark:text-white"
             >
               <option value="all">All Departments</option>
               {departments.map((dept) => (
@@ -170,7 +170,7 @@ const FacultyRecord: React.FC = () => {
       {/* Faculty Cards */}
       <div className="grid gap-6">
         {filteredFaculty.length === 0 ? (
-          <div className="bg-white dark:bg-gray-800 p-12 rounded-lg shadow-sm text-center">
+          <div className="bg-white p-12 rounded-lg shadow-sm text-center">
             <GraduationCap className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
               No faculty members found
@@ -184,7 +184,7 @@ const FacultyRecord: React.FC = () => {
           </div>
         ) : (
           filteredFaculty.map((member) => (
-            <div key={member.id} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+            <div key={member.id} className="bg-white  p-6 rounded-lg shadow-sm">
               <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-4">
@@ -228,7 +228,7 @@ const FacultyRecord: React.FC = () => {
                 <div className="flex flex-col sm:flex-row gap-2">
                   <button
                     onClick={() => setSelectedFaculty(member)}
-                    className="flex items-center justify-center space-x-2 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="flex items-center justify-center space-x-2 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50transition-colors"
                   >
                     <Eye className="w-4 h-4" />
                     <span>View</span>
@@ -257,15 +257,15 @@ const FacultyRecord: React.FC = () => {
       {/* Add/Edit Faculty Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white  rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                <h2 className="text-xl font-bold text-gray-900 ">
                   {editingFaculty ? 'Edit Faculty Member' : 'Add New Faculty Member'}
                 </h2>
                 <button
                   onClick={handleCloseModal}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                  className="p-2 hover:bg-gray-100  rounded-lg"
                 >
                   <Trash2 className="w-5 h-5" />
                 </button>
@@ -274,7 +274,7 @@ const FacultyRecord: React.FC = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Full Name *
                     </label>
                     <input
@@ -283,11 +283,11 @@ const FacultyRecord: React.FC = () => {
                       required
                       value={formData.name}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Email *
                     </label>
                     <input
@@ -296,11 +296,11 @@ const FacultyRecord: React.FC = () => {
                       required
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Phone *
                     </label>
                     <input
@@ -309,11 +309,11 @@ const FacultyRecord: React.FC = () => {
                       required
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Department *
                     </label>
                     <select
@@ -321,7 +321,7 @@ const FacultyRecord: React.FC = () => {
                       required
                       value={formData.department}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     >
                       <option value="">Select Department</option>
                       {departments.map((dept) => (
@@ -330,7 +330,7 @@ const FacultyRecord: React.FC = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Designation *
                     </label>
                     <select
@@ -338,7 +338,7 @@ const FacultyRecord: React.FC = () => {
                       required
                       value={formData.designation}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     >
                       <option value="">Select Designation</option>
                       {designations.map((designation) => (
@@ -347,7 +347,7 @@ const FacultyRecord: React.FC = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Date of Joining *
                     </label>
                     <input
@@ -356,11 +356,11 @@ const FacultyRecord: React.FC = () => {
                       required
                       value={formData.dateOfJoining}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Qualification *
                     </label>
                     <input
@@ -370,11 +370,11 @@ const FacultyRecord: React.FC = () => {
                       value={formData.qualification}
                       onChange={handleInputChange}
                       placeholder="e.g., Ph.D. in Computer Science"
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Experience (Years) *
                     </label>
                     <input
@@ -384,11 +384,11 @@ const FacultyRecord: React.FC = () => {
                       min="0"
                       value={formData.experience}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Salary *
                     </label>
                     <input
@@ -398,11 +398,11 @@ const FacultyRecord: React.FC = () => {
                       min="0"
                       value={formData.salary}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500  "
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Status *
                     </label>
                     <select
@@ -410,7 +410,7 @@ const FacultyRecord: React.FC = () => {
                       required
                       value={formData.status}
                       onChange={handleInputChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 "
                     >
                       <option value="Active">Active</option>
                       <option value="Inactive">Inactive</option>
@@ -422,7 +422,7 @@ const FacultyRecord: React.FC = () => {
                   <button
                     type="button"
                     onClick={handleCloseModal}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    className="px-4 py-2 border border-gray-300  rounded-lg hover:bg-gray-50  transition-colors"
                   >
                     Cancel
                   </button>
@@ -442,7 +442,7 @@ const FacultyRecord: React.FC = () => {
       {/* Faculty Details Modal */}
       {selectedFaculty && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white  rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -450,7 +450,7 @@ const FacultyRecord: React.FC = () => {
                 </h2>
                 <button
                   onClick={() => setSelectedFaculty(null)}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                  className="p-2 hover:bg-gray-100  rounded-lg"
                 >
                   <Trash2 className="w-5 h-5" />
                 </button>
@@ -459,69 +459,69 @@ const FacultyRecord: React.FC = () => {
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Full Name
                     </label>
-                    <p className="text-gray-900 dark:text-white">{selectedFaculty.name}</p>
+                    <p className="text-gray-900 ">{selectedFaculty.name}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Email
                     </label>
-                    <p className="text-gray-900 dark:text-white">{selectedFaculty.email}</p>
+                    <p className="text-gray-900 ">{selectedFaculty.email}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Phone
                     </label>
-                    <p className="text-gray-900 dark:text-white">{selectedFaculty.phone}</p>
+                    <p className="text-gray-900 ">{selectedFaculty.phone}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Department
                     </label>
-                    <p className="text-gray-900 dark:text-white">{selectedFaculty.department}</p>
+                    <p className="text-gray-900 ">{selectedFaculty.department}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Designation
                     </label>
-                    <p className="text-gray-900 dark:text-white">{selectedFaculty.designation}</p>
+                    <p className="text-gray-900 ">{selectedFaculty.designation}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Date of Joining
                     </label>
-                    <p className="text-gray-900 dark:text-white">
+                    <p className="text-gray-900 ">
                       {new Date(selectedFaculty.dateOfJoining).toLocaleDateString()}
                     </p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Qualification
                     </label>
-                    <p className="text-gray-900 dark:text-white">{selectedFaculty.qualification}</p>
+                    <p className="text-gray-900 ">{selectedFaculty.qualification}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Experience
                     </label>
-                    <p className="text-gray-900 dark:text-white">{selectedFaculty.experience} years</p>
+                    <p className="text-gray-900 ">{selectedFaculty.experience} years</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Salary
                     </label>
-                    <p className="text-gray-900 dark:text-white">${selectedFaculty.salary.toLocaleString()}</p>
+                    <p className="text-gray-900 ">${selectedFaculty.salary.toLocaleString()}</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <label className="block text-sm font-medium text-gray-700  mb-1">
                       Status
                     </label>
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                       selectedFaculty.status === 'Active'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
-                        : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                        ? 'bg-green-100 text-green-800 '
+                        : 'bg-red-100 text-red-800 '
                     }`}>
                       {selectedFaculty.status}
                     </span>
@@ -532,7 +532,7 @@ const FacultyRecord: React.FC = () => {
               <div className="flex justify-end space-x-3 mt-8">
                 <button
                   onClick={() => setSelectedFaculty(null)}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="px-4 py-2 border border-gray-300  rounded-lg hover:bg-gray-50  transition-colors"
                 >
                   Close
                 </button>
